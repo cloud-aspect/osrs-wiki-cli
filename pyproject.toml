@@ -7,7 +7,7 @@ name = "osrs-wiki-cli"
 version = "1.0.0"
 description = "Modern CLI utility for extracting structured data from Old School RuneScape Wiki"
 readme = "README.md"
-license = {text = "MIT"}
+license = {file = "LICENSE"}
 authors = [
     {name = "cloud-aspect"}
 ]
