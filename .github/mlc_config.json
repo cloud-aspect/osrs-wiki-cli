@@ -1,0 +1,28 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^https://oldschool.runescape.wiki/w/"
+    },
+    {
+      "pattern": "^https://github.com/cloud-aspect/osrs-wiki-cli/"
+    }
+  ],
+  "replacementPatterns": [
+    {
+      "pattern": "^/",
+      "replacement": "{{BASEURL}}/"
+    }
+  ],
+  "httpHeaders": [
+    {
+      "urls": ["https://oldschool.runescape.wiki"],
+      "headers": {
+        "User-Agent": "osrs-wiki-cli/1.0 (GitHub Actions link checker)"
+      }
+    }
+  ],
+  "retryOn429": true,
+  "retryCount": 3,
+  "fallbackRetryDelay": "2s",
+  "aliveStatusCodes": [200, 206]
+}

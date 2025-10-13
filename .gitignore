@@ -133,3 +133,4 @@ settings.local.*
 
 # Private branding and analysis documents
 .github/BRAND_GUIDELINES.md
+!.github/mlc_config.json

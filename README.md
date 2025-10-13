@@ -35,8 +35,8 @@ osrs-wiki-cli source "Template:Infobox Item" --format text
 
 1. **Clone the repository:**
    ```bash
-   git clone <repository-url>
-   cd osrs-wiki-page-tool
+   git clone https://github.com/cloud-aspect/osrs-wiki-cli.git
+   cd osrs-wiki-cli
    ```
 
 2. **Install osrs-wiki-cli:**
@@ -177,4 +177,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Need help?** Check out the [FAQ](docs/usage/faq.md) or [open an issue](https://github.com/your-repo/osrs-wiki-page-tool/issues/new).
+**Need help?** Check out the [FAQ](docs/usage/faq.md) or [open an issue](https://github.com/cloud-aspect/osrs-wiki-cli/issues/new).
