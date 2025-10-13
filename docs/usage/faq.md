@@ -199,4 +199,4 @@ Try the same command with `--format text` to see if the issue is with JSON forma
 
 ---
 
-**Need more help?** Check the [User Guide](README.md) or [open an issue](https://github.com/your-repo/osrs-wiki-page-tool/issues/new) for support.
+**Need more help?** Check the [User Guide](README.md) or [open an issue](https://github.com/cloud-aspect/osrs-wiki-cli/issues/new) for support.
