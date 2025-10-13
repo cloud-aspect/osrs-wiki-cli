@@ -1,0 +1,66 @@
+name: Bug Report
+description: Report a bug or issue with the OSRS Wiki Page Tool
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill out the information below.
+        
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear description of what the bug is
+      placeholder: Describe what happened and what you expected to happen
+    validations:
+      required: true
+      
+  - type: textarea
+    id: command
+    attributes:
+      label: Command Used
+      description: The exact command you ran that caused the issue
+      placeholder: python wiki_tool.py source "Page Name" --format json
+      render: bash
+    validations:
+      required: true
+      
+  - type: textarea
+    id: error
+    attributes:
+      label: Error Output
+      description: Copy and paste any error messages
+      placeholder: Paste the full error message here
+      render: text
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      options:
+        - Windows
+        - macOS
+        - Linux (Ubuntu)
+        - Linux (other)
+        - Other
+    validations:
+      required: true
+      
+  - type: input
+    id: python-version
+    attributes:
+      label: Python Version
+      placeholder: "3.9.0"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other information that might help us understand the issue
+      placeholder: Add any other context about the problem here

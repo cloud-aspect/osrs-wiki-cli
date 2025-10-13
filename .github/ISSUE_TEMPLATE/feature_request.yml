@@ -1,0 +1,60 @@
+name: Feature Request
+description: Suggest a new feature or enhancement for the OSRS Wiki Page Tool
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new feature! Please provide details below.
+        
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case
+      description: Describe what you're trying to accomplish
+      placeholder: "I want to extract X data for Y purpose..."
+    validations:
+      required: true
+      
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the feature you'd like to see
+      placeholder: "Add a new command that does..."
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: feature-type
+    attributes:
+      label: Feature Type
+      options:
+        - New command
+        - New output format
+        - Data extraction improvement
+        - Performance enhancement
+        - Integration with other tools
+        - Documentation improvement
+        - Other
+    validations:
+      required: true
+      
+  - type: textarea
+    id: examples
+    attributes:
+      label: Example Usage
+      description: Show how the feature would be used
+      placeholder: "python wiki_tool.py new-command \"Page Name\" --option value"
+      render: bash
+    validations:
+      required: false
+      
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative Solutions
+      description: Describe any alternative solutions or workarounds you've considered
+    validations:
+      required: false
