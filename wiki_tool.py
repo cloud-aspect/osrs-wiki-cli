@@ -27,7 +27,7 @@ class WikiAPIClient:
     def __init__(self):
         self.base_url = "https://oldschool.runescape.wiki/api.php"
         self.headers = {
-            'User-Agent': 'OSRSWikiTool/1.0 (https://github.com/user/osrs-wiki-tool)'
+            'User-Agent': 'osrs-wiki-cli/1.0 (https://github.com/cloud-aspect/osrs-wiki-cli)'
         }
         self.session = requests.Session()
         self.session.headers.update(self.headers)
@@ -390,5 +390,9 @@ def main():
         sys.exit(1)
 
 
-if __name__ == "__main__":
+def cli():
+    """Entry point for osrs-wiki-cli command."""
     main()
+
+if __name__ == '__main__':
+    cli()

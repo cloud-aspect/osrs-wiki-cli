@@ -1,7 +1,7 @@
 ````markdown
-# OSRS Wiki CLI Tool: Project Definition
+# osrs-wiki-cli: Project Definition
 
-This document outlines the project specifications for a command-line interface (CLI) tool designed for on-demand, manual data extraction from the Old School RuneScape (OSRS) Wiki. The tool's core functionality is to reliably extract structured data in formats suitable for integration into custom plugins, calculators, and external tools using the MediaWiki API.
+This document outlines the project specifications for osrs-wiki-cli, a modern command-line utility designed for on-demand data extraction from the Old School RuneScape Wiki. The tool reliably extracts structured data in formats optimized for RuneLite plugins, web applications, and data analysis workflows using the MediaWiki API.
 
 ## 1. Core Objectives
 

@@ -1,6 +1,6 @@
 # User Guide
 
-Complete instructions for using the OSRS Wiki Page Tool CLI.
+Complete instructions for using osrs-wiki-cli.
 
 ## Table of Contents
 
@@ -12,13 +12,13 @@ Complete instructions for using the OSRS Wiki Page Tool CLI.
 
 ## Getting Started
 
-The OSRS Wiki Page Tool is designed for extracting structured data from the Old School RuneScape Wiki. It uses the MediaWiki API to retrieve clean JSON data without HTML parsing.
+osrs-wiki-cli is designed for extracting structured data from the Old School RuneScape Wiki. It uses the MediaWiki API to retrieve clean JSON data without HTML parsing.
 
 ### Basic Usage Pattern
 
 All commands follow this pattern:
 ```bash
-python wiki_tool.py <command> [arguments] [options]
+osrs-wiki-cli <command> [arguments] [options]
 ```
 
 ### Global Options

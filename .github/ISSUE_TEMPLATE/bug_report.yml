@@ -1,5 +1,5 @@
 name: Bug Report
-description: Report a bug or issue with the OSRS Wiki Page Tool
+description: Report a bug or issue with osrs-wiki-cli
 title: "[Bug] "
 labels: ["bug"]
 body:
@@ -22,7 +22,7 @@ body:
     attributes:
       label: Command Used
       description: The exact command you ran that caused the issue
-      placeholder: python wiki_tool.py source "Page Name" --format json
+      placeholder: osrs-wiki-cli source "Page Name" --format json
       render: bash
     validations:
       required: true

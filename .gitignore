@@ -130,3 +130,6 @@ wheels/
 # Configuration overrides
 config.local.*
 settings.local.*
+
+# Private branding and analysis documents
+.github/BRAND_GUIDELINES.md

@@ -1,9 +1,10 @@
-# OSRS Wiki Page Tool
+# osrs-wiki-cli
 
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub release](https://img.shields.io/github/v/release/cloud-aspect/osrs-wiki-cli?include_prereleases)](https://github.com/cloud-aspect/osrs-wiki-cli/releases)
 
-A Python CLI tool for extracting structured data from the Old School RuneScape Wiki using the MediaWiki API. Designed to provide clean, programmatically accessible data formats for plugin development, custom tools, and data analysis projects.
+A modern CLI utility for extracting structured data from the Old School RuneScape Wiki. Built for developers who need clean, programmatically accessible data formats for RuneLite plugins, web applications, and data analysis workflows.
 
 ## Features
 
@@ -17,17 +18,17 @@ A Python CLI tool for extracting structured data from the Old School RuneScape W
 ## Quick Start
 
 ```bash
-# Extract Lua module data for plugin development
-python wiki_tool.py source "Module:SlayerConsts/MasterTables" --format json
+# Extract Lua module data for plugin development  
+osrs-wiki-cli source "Module:SlayerConsts/MasterTables" --format json
 
 # Get calculator configurations with dependencies
-python wiki_tool.py source "Calculator:Agility" --templates --format text
+osrs-wiki-cli source "Calculator:Agility" --templates --format text
 
 # List all items in a category for data analysis
-python wiki_tool.py category "Items" --format csv --limit 50
+osrs-wiki-cli category "Items" --format csv --limit 50
 
 # Extract template structure for parsing
-python wiki_tool.py source "Template:Infobox Item" --format text
+osrs-wiki-cli source "Template:Infobox Item" --format text
 ```
 
 ## Installation
@@ -38,16 +39,16 @@ python wiki_tool.py source "Template:Infobox Item" --format text
    cd osrs-wiki-page-tool
    ```
 
-2. **Set up Python environment:**
+2. **Install osrs-wiki-cli:**
    ```bash
+   # Option 1: Install from PyPI (recommended)
+   pip install osrs-wiki-cli
+   
+   # Option 2: Install from source
    python -m venv venv
    venv\Scripts\activate  # Windows
    # or
    source venv/bin/activate  # Linux/macOS
-   ```
-
-3. **Install dependencies:**
-   ```bash
    pip install requests beautifulsoup4
    ```
 
@@ -66,13 +67,13 @@ The tool provides commands designed for different integration workflows:
 
 ```bash
 # Extract all items for a trading application database
-python wiki_tool.py category "Items" --format csv --save
+osrs-wiki-cli category "Items" --format csv --save
 
 # Get monster data for combat calculator development  
-python wiki_tool.py category "Monsters" --format json --limit 100
+osrs-wiki-cli category "Monsters" --format json --limit 100
 
 # Extract Lua modules for game logic integration
-python wiki_tool.py source "Module:SlayerConsts/MasterTables" --format text
+osrs-wiki-cli source "Module:SlayerConsts/MasterTables" --format text
 ```
 
 ## Data Integration Examples
@@ -117,7 +118,7 @@ async function loadGameData() {
 import pandas as pd
 import sqlite3
 
-# Load data from: python wiki_tool.py category "Items" --format csv --save  
+# Load data from: osrs-wiki-cli category "Items" --format csv --save  
 df = pd.read_csv('data/categories/Items.csv')
 
 # Create searchable database

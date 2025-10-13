@@ -1,4 +1,4 @@
-name: OSRS Wiki Tool Tests
+name: osrs-wiki-cli Tests
 
 on:
   push:

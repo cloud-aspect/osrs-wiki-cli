@@ -1,5 +1,5 @@
 name: Feature Request
-description: Suggest a new feature or enhancement for the OSRS Wiki Page Tool
+description: Suggest a new feature or enhancement for osrs-wiki-cli
 title: "[Feature] "
 labels: ["enhancement"]
 body:
@@ -46,7 +46,7 @@ body:
     attributes:
       label: Example Usage
       description: Show how the feature would be used
-      placeholder: "python wiki_tool.py new-command \"Page Name\" --option value"
+      placeholder: "osrs-wiki-cli new-command \"Page Name\" --option value"
       render: bash
     validations:
       required: false
