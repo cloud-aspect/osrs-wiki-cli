@@ -1,33 +1,40 @@
 # PyPI Publishing Setup
 
-This document explains how to set up automated PyPI publishing for osrs-wiki-cli.
+This document explains how to set up automated PyPI publishing for osrs-wiki-cli using **PyPI Trusted Publishers** (OIDC).
 
-## GitHub Secrets Configuration
+## Overview
 
-To enable automated publishing, you need to configure these secrets in your GitHub repository:
+osrs-wiki-cli uses **PyPI Trusted Publishers** with OpenID Connect (OIDC) for secure, token-free publishing. This is more secure than API tokens as it doesn't require storing secrets.
 
-### Required Secrets
+## Setup Requirements
 
-1. **`PYPI_API_TOKEN`** - Your PyPI API token for production releases
-2. **`TEST_PYPI_API_TOKEN`** - Your Test PyPI API token for testing
+### 1. PyPI Trusted Publisher Configuration
 
-### Setting Up API Tokens
+Configure trusted publishers on both PyPI platforms:
 
-#### 1. PyPI Production Token
+#### Production PyPI (pypi.org)
+1. Go to [pypi.org](https://pypi.org/manage/account/publishing/)
+2. Add a new **pending publisher**:
+   ```
+   Publisher Type: GitHub Actions
+   Owner: cloud-aspect  
+   Repository: osrs-wiki-cli
+   Workflow: publish.yml
+   Environment: (optional: pypi-production)
+   ```
 
-1. Go to [pypi.org](https://pypi.org/manage/account/token/)
-2. Create a new API token with scope "Entire account" or specific to your project
-3. Copy the token (starts with `pypi-`)
-4. In GitHub: Settings → Secrets and variables → Actions → New repository secret
-5. Name: `PYPI_API_TOKEN`, Value: your token
+#### Test PyPI (test.pypi.org)  
+1. Go to [test.pypi.org](https://test.pypi.org/manage/account/publishing/)
+2. Add the same configuration as above
 
-#### 2. Test PyPI Token  
+### 2. GitHub Repository Configuration
 
-1. Go to [test.pypi.org](https://test.pypi.org/manage/account/token/)
-2. Create a new API token with scope "Entire account" or specific to your project
-3. Copy the token (starts with `pypi-`)
-4. In GitHub: Settings → Secrets and variables → Actions → New repository secret
-5. Name: `TEST_PYPI_API_TOKEN`, Value: your token
+See the complete guide: [`github-oidc-setup.md`](github-oidc-setup.md)
+
+**Key settings:**
+- Workflow permissions: Read and write permissions
+- No API token secrets needed (tokens are replaced by OIDC)
+- Optional: Create environments for additional security
 
 ## Publishing Workflow
 
@@ -110,9 +117,11 @@ python -m build
 twine upload dist/*
 ```
 
-## Security Notes
+## Security Benefits
 
-- API tokens are stored as GitHub Secrets (encrypted)
-- Development versions are published to Test PyPI first
-- Production releases require git tags for extra safety
-- All uploads use `--skip-existing` to prevent overwrites
+✅ **No API tokens stored** - Uses GitHub's OIDC identity instead of secrets  
+✅ **Scoped permissions** - Publishing only works from the specified repository and workflow  
+✅ **Audit trail** - All publishing actions are logged in GitHub Actions  
+✅ **Revocable access** - Can be disabled instantly on PyPI without rotating tokens  
+✅ **Time-limited tokens** - OIDC tokens are short-lived and automatically expire  
+✅ **Git-based security** - Production releases require git tags for additional safety
