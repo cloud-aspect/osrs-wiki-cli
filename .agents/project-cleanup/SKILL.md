@@ -123,11 +123,27 @@ Create a reusable workflow skill for updating project documentation, deployment 
 - Replace dead command references in docs with the current CLI names.
 - Prefer `uv run python .\wiki_tool.py` for local usage.
 
+### Git push failure
+- If `git push` fails, do not force push unless absolutely necessary.
+- Run:
+  ```powershell
+  git fetch origin
+  git status --short --branch
+  git log --oneline --decorate --graph -n 5
+  git push --dry-run origin main
+  ```
+- If the remote has new commits, rebase or merge first:
+  ```powershell
+  git pull --rebase origin main
+  git push origin main
+  ```
+- Only use `git push -f` when you understand the implications and are updating a feature branch intentionally.
+
 ## Output
 - A documented procedure for updating docs, deployment, and validation.
 - Specific commands for `uv`, dependency management, and YAML validation.
 - Error handling sections for the most common failure modes.
-- A reusable skill saved at `.agents/skills/SKILL.md`.
+- A reusable skill saved at `.agents/project-cleanup/SKILL.md`.
 
 ## Suggested prompts
 - "Update project documentation and validation procedure for osrs-wiki-cli"
