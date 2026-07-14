@@ -86,8 +86,14 @@ The `wiki_tool.py` file is organized as:
 
 3. **Verify installation:**
    ```bash
-   python wiki_tool.py --help
-   python wiki_tool.py source "Template:Documentation" --format json
+   uv run python .\wiki_tool.py --help
+   uv run python .\wiki_tool.py source "Template:Documentation" --format json
+   ```
+
+   Or use a temporary uv environment:
+   ```bash
+   uv run python .\wiki_tool.py --help
+   uv run python .\wiki_tool.py source "Template:Documentation" --format json
    ```
 
 ### Testing Strategy
@@ -100,9 +106,16 @@ The `wiki_tool.py` file is organized as:
 **Test Pages for Development:**
 ```bash
 # Stable test targets
-python wiki_tool.py source "Template:Documentation"
-python wiki_tool.py source "Module:Coins"
-python wiki_tool.py list "Category:Skill calculators" --limit 5
+uv run python .\wiki_tool.py source "Template:Documentation"
+uv run python .\wiki_tool.py source "Module:Coins"
+uv run python .\wiki_tool.py category "Category:Skill calculators" --limit 5
+```
+
+Or with uv:
+```bash
+uv run python .\wiki_tool.py source "Template:Documentation"
+uv run python .\wiki_tool.py source "Module:Coins"
+uv run python .\wiki_tool.py category "Category:Skill calculators" --limit 5
 ```
 
 **MediaWiki API Sandbox:**
@@ -113,7 +126,7 @@ Use https://www.mediawiki.org/wiki/Special:ApiSandbox for developing new queries
 1. **Make changes** to `wiki_tool.py`
 2. **Test locally:**
    ```bash
-   python wiki_tool.py source "Test Page" --format json
+   uv run python .\wiki_tool.py source "Test Page" --format json
    ```
 3. **Run linting:**
    ```bash
@@ -196,12 +209,12 @@ Test against live MediaWiki API:
 
 ```bash
 # Test successful cases
-python wiki_tool.py source "Template:Documentation" --format json
-python wiki_tool.py list "Category:Calculators" --limit 5
+uv run python .\wiki_tool.py source "Template:Documentation" --format json
+uv run python .\wiki_tool.py category "Category:Calculators" --limit 5
 
 # Test error cases  
-python wiki_tool.py source "Nonexistent Page Name"
-python wiki_tool.py list "Nonexistent Category"
+uv run python .\wiki_tool.py source "Nonexistent Page Name"
+uv run python .\wiki_tool.py category "Nonexistent Category" --limit 5
 ```
 
 ### Error Scenario Testing
@@ -226,14 +239,14 @@ Before releases, test core functionality:
 
 ```bash
 # Slayer data extraction (primary use case)
-python wiki_tool.py source "Module:SlayerConsts/MasterTables" --format text
-python wiki_tool.py source "Calculator:Slayer/Slayer task weight" --templates
+uv run python .\wiki_tool.py source "Module:SlayerConsts/MasterTables" --format text
+uv run python .\wiki_tool.py source "Calculator:Slayer/Slayer task weight" --templates
 
 # Category listing
-python wiki_tool.py list "Category:Modules" --limit 10 --format csv
+uv run python .\wiki_tool.py category "Category:Modules" --limit 10 --format csv
 
 # Error handling
-python wiki_tool.py source "Does Not Exist"
+uv run python .\wiki_tool.py source "Does Not Exist"
 ```
 
 ## Contributing
@@ -244,7 +257,7 @@ When reporting issues, include:
 
 1. **Command that failed:**
    ```bash
-   python wiki_tool.py source "Page Name" --options
+   uv run python .\wiki_tool.py source "Page Name" --options
    ```
 
 2. **Full error message and traceback**
@@ -270,7 +283,7 @@ When reporting issues, include:
 
 3. **Test thoroughly:**
    ```bash
-   python wiki_tool.py --help  # Verify CLI works
+   uv run python .\wiki_tool.py --help  # Verify CLI works
    # Test your specific changes
    # Test error cases
    ```
@@ -311,8 +324,8 @@ Detailed explanation if needed.
 
 1. **Test core functionality:**
    ```bash
-   python wiki_tool.py source "Module:SlayerConsts/MasterTables" --format json
-   python wiki_tool.py list "Category:Calculators" --limit 5
+   uv run python .\wiki_tool.py source "Module:SlayerConsts/MasterTables" --format json
+   uv run python .\wiki_tool.py category "Category:Calculators" --limit 5
    ```
 
 2. **Update documentation:**
@@ -331,7 +344,7 @@ Detailed explanation if needed.
    python -m venv test_env
    test_env\Scripts\activate
    pip install requests beautifulsoup4
-   python wiki_tool.py --help
+   uv run python .\wiki_tool.py --help
    ```
 
 ### Release Notes Template

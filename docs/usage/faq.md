@@ -72,8 +72,8 @@ Common questions and solutions for using the OSRS Wiki Page Tool.
 
 **A:** Use quotes and the exact title as it appears on the wiki:
 ```bash
-python wiki_tool.py source "Calculator:Slayer/Slayer task weight"
-python wiki_tool.py source "Monkey Madness I"
+uv run python .\wiki_tool.py source "Calculator:Slayer/Slayer task weight"
+uv run python .\wiki_tool.py source "Monkey Madness I"
 ```
 
 ## Rate Limiting & Performance
@@ -100,13 +100,13 @@ python wiki_tool.py source "Monkey Madness I"
 **A:** Use this three-step process:
 ```bash
 # 1. Get calculator configuration
-python wiki_tool.py source "Calculator:Slayer/Slayer task weight" --templates --format text
+uv run python .\wiki_tool.py source "Calculator:Slayer/Slayer task weight" --templates --format text
 
 # 2. Get weight tables  
-python wiki_tool.py source "Module:SlayerConsts/MasterTables" --format text
+uv run python .\wiki_tool.py source "Module:SlayerConsts/MasterTables" --format text
 
 # 3. Get calculation logic
-python wiki_tool.py source "Module:Slayer weight calculator" --format text
+uv run python .\wiki_tool.py source "Module:Slayer weight calculator" --format text
 ```
 
 ### Q: The output is too large. How do I limit it?
@@ -114,7 +114,7 @@ python wiki_tool.py source "Module:Slayer weight calculator" --format text
 **A:** 
 - Use `--limit` with the `list` command
 - Use `--format text` for content-only output
-- Redirect output to files: `python wiki_tool.py ... > output.txt`
+- Redirect output to files: `uv run python .\wiki_tool.py ... > output.txt`
 - Process specific pages instead of entire categories
 
 ### Q: How do I work with the Lua code output?
@@ -129,7 +129,7 @@ python wiki_tool.py source "Module:Slayer weight calculator" --format text
 
 **A:** Yes, use the `--templates` flag with source command and parse the JSON output:
 ```bash
-python wiki_tool.py source "Page Name" --templates --format json | jq '.templates'
+uv run python .\wiki_tool.py source "Page Name" --templates --format json | jq '.templates'
 ```
 
 ## Troubleshooting
@@ -177,8 +177,8 @@ Try the same command with `--format text` to see if the issue is with JSON forma
 ### Q: How do I integrate this with other tools?
 
 **A:** The tool works well with:
-- **sqlite-utils:** `python wiki_tool.py list "Category:Items" --format csv | sqlite-utils insert items.db items -`
-- **jq:** `python wiki_tool.py source "Module:Data" --format json | jq '.wikitext'`  
+- **sqlite-utils:** `uv run python .\wiki_tool.py category "Category:Items" --format csv | sqlite-utils insert items.db items -`
+- **jq:** `uv run python .\wiki_tool.py source "Module:Data" --format json | jq '.wikitext'`  
 - **pandas:** Save CSV output and load with `pd.read_csv()`
 
 ### Q: Can I modify the User-Agent or other headers?

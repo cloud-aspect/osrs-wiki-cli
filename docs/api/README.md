@@ -7,6 +7,7 @@ Complete command-line interface reference for the OSRS Wiki Page Tool.
 - [Global Options](#global-options)
 - [Commands](#commands)
   - [source](#source-command)
+  - [page](#page-command)
   - [category](#category-command)
 - [Output Formats](#output-formats)
 - [Error Codes](#error-codes)
@@ -23,7 +24,7 @@ Specify the output format for results.
 
 **Example:**
 ```bash
-python wiki_tool.py source "Module:SlayerConsts/MasterTables" --format json
+uv run python .\wiki_tool.py source "Module:SlayerConsts/MasterTables" --format json
 ```
 
 ### `--help`
@@ -32,8 +33,14 @@ Show help information for the command.
 
 **Example:**
 ```bash
-python wiki_tool.py --help
-python wiki_tool.py source --help
+uv run python .\wiki_tool.py --help
+uv run python .\wiki_tool.py source --help
+```
+
+Or use `uv run`:
+```bash
+uv run python .\wiki_tool.py --help
+uv run python .\wiki_tool.py source --help
 ```
 
 ## Commands
@@ -43,7 +50,7 @@ python wiki_tool.py source --help
 Extract raw wikitext and template information from a wiki page.
 
 ```
-Usage: python wiki_tool.py source PAGE_TITLE [OPTIONS]
+Usage: uv run python .\wiki_tool.py source PAGE_TITLE [OPTIONS]
 
 Extract wikitext source and template information from a wiki page
 
@@ -51,8 +58,10 @@ Arguments:
   PAGE_TITLE  The exact title of the wiki page to extract
 
 Options:
-  --templates         Include list of templates used on the page
-  --format FORMAT     Output format: json (default), csv, text
+  --templates         Include list of templates and modules used by the page
+  --expand            Include expanded wikitext with template expansion
+  --format FORMAT     Output format: json (default), text
+  --save              Save extracted output using the data organizer
   --help              Show this help message and exit
 ```
 
@@ -62,20 +71,22 @@ Options:
 
 **Options:**
 
-- `--templates` - When specified, includes a list of all templates referenced on the page in the output
-- `--format FORMAT` - Output format (json, csv, text)
+- `--templates` - When specified, includes a list of all templates and modules referenced on the page in the output
+- `--expand` - Include expanded wikitext with template expansion
+- `--format FORMAT` - Output format: json (default), text
+- `--save` - Save output using the data organizer
 
 **Examples:**
 
 ```bash
 # Extract Lua module source
-python wiki_tool.py source "Module:SlayerConsts/MasterTables"
+uv run python .\wiki_tool.py source "Module:SlayerConsts/MasterTables"
 
 # Get calculator page with template list
-python wiki_tool.py source "Calculator:Slayer/Slayer task weight" --templates
+uv run python .\wiki_tool.py source "Calculator:Slayer/Slayer task weight" --templates
 
 # Get wikitext as plain text
-python wiki_tool.py source "Template:Infobox Monster" --format text
+uv run python .\wiki_tool.py source "Template:Infobox Monster" --format text
 ```
 
 **Output Structure (JSON):**
@@ -89,12 +100,45 @@ python wiki_tool.py source "Template:Infobox Monster" --format text
 }
 ```
 
+### `page` Command
+
+Extract parsed page content from a wiki page.
+
+```
+Usage: uv run python .\wiki_tool.py page PAGE_TITLE [OPTIONS]
+
+Extract parsed tables, paragraphs, and links from a wiki page
+
+Arguments:
+  PAGE_TITLE  The exact title of the wiki page to extract
+
+Options:
+  --tables            Render extracted tables as Markdown
+  --format FORMAT     Output format: json (default), csv, text
+  --save              Save extracted output using the data organizer
+  --data-dir PATH     Directory for organized data storage (default: data)
+  --help              Show this help message and exit
+```
+
+**Output Structure (JSON):**
+
+```json
+{
+  "page_title": "string",
+  "page_id": integer,
+  "sections": [...],
+  "tables": [...],
+  "paragraphs": [...],
+  "links": [...]
+}
+```
+
 ### `category` Command
 
 List pages in a category with pagination support.
 
 ```
-Usage: python wiki_tool.py category CATEGORY_NAME [OPTIONS]
+Usage: uv run python .\wiki_tool.py category CATEGORY_NAME [OPTIONS]
 
 List pages in a wiki category
 
@@ -102,8 +146,9 @@ Arguments:
   CATEGORY_NAME  The name of the category to list (with or without 'Category:' prefix)
 
 Options:
-  --limit INTEGER     Maximum number of pages to return (default: 50)
-  --format FORMAT     Output format: json (default), csv, text  
+  --limit INTEGER     Maximum number of pages to return (default: 10)
+  --format FORMAT     Output format: json (default), csv, text
+  --save              Save extracted output using the data organizer
   --help              Show this help message and exit
 ```
 
@@ -113,20 +158,20 @@ Options:
 
 **Options:**
 
-- `--limit INTEGER` - Maximum number of pages to return. Default is 50. Maximum allowed is 500 per MediaWiki API limits.
+- `--limit INTEGER` - Maximum number of pages to return. Default is 10. Maximum allowed is 500 per MediaWiki API limits.
 - `--format FORMAT` - Output format (json, csv, text)
 
 **Examples:**
 
 ```bash
 # List calculator pages
-python wiki_tool.py category "Calculators" --format json
+uv run python .\wiki_tool.py category "Calculators" --format json
 
 # List modules without category prefix
-python wiki_tool.py category "Modules" --limit 100
+uv run python .\wiki_tool.py category "Modules" --limit 100
 
 # Get CSV output
-python wiki_tool.py category "Templates" --format csv --limit 25
+uv run python .\wiki_tool.py category "Templates" --format csv --limit 25
 ```
 
 **Output Structure (JSON):**

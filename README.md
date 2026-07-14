@@ -29,6 +29,9 @@ osrs-wiki-cli category "Items" --format csv --limit 50
 
 # Extract template structure for parsing
 osrs-wiki-cli source "Template:Infobox Item" --format text
+
+# Extract parsed tables from a calculator page
+osrs-wiki-cli page "Calculator:Combat level" --tables
 ```
 
 ## Installation
@@ -52,6 +55,11 @@ osrs-wiki-cli source "Template:Infobox Item" --format text
    pip install requests beautifulsoup4
    ```
 
+3. **Run with uv (temporary environment):**
+   ```bash
+   uv run python .\wiki_tool.py <command> [args]
+   ```
+
 ## Usage
 
 The tool provides commands designed for different integration workflows:
@@ -59,9 +67,8 @@ The tool provides commands designed for different integration workflows:
 ### Commands
 
 - **`source`** - Extract raw source code, templates, and dependencies for custom parsing
-- **`category`** - Generate complete page lists for building indexes and data catalogs  
-- **`page`** (planned) - Extract parsed tables and infoboxes in structured formats
-- **`search`** (planned) - Search wiki content with filtering for targeted data discovery
+- **`category`** - Generate complete page lists for building indexes and data catalogs
+- **`page`** - Extract parsed tables, paragraphs, and links, with optional Markdown table output
 
 ### Integration Examples
 
@@ -87,7 +94,7 @@ public class WikiDataPlugin extends Plugin {
     
     @Override
     protected void startUp() {
-        // Load extracted wiki data: python wiki_tool.py category "Items" --format json
+        // Load extracted wiki data: uv run python .\wiki_tool.py category "Items" --format json
         itemDatabase = loadWikiItemData("data/categories/Items.json");
         log.info("Loaded {} items from wiki extraction", itemDatabase.size());
     }
@@ -98,7 +105,7 @@ public class WikiDataPlugin extends Plugin {
 ```javascript
 // Load extracted category data for web app
 async function loadGameData() {
-    // Data from: python wiki_tool.py category "Calculators" --format json --save
+    // Data from: uv run python .\wiki_tool.py category "Calculators" --format json --save
     const calculators = await fetch('/data/categories/Calculators.json').then(r => r.json());
     
     // Build searchable calculator index

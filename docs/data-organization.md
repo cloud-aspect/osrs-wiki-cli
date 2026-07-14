@@ -17,33 +17,33 @@ The data organization system provides:
 
 ```bash
 # Run the data organizer (creates directory structure and organizes existing files)
-python data_organizer.py
+uv run python .\data_organizer.py
 
 # Extract and save data with the enhanced wiki tool
-python wiki_tool.py source "Module:SlayerConsts/MasterTables" --templates --save
+uv run python .\wiki_tool.py source "Module:SlayerConsts/MasterTables" --templates --save
 
 # List organized data
-python data_manager.py list
+uv run python .\data_manager.py list
 ```
 
 ### 2. Batch Data Extraction
 
 ```bash
 # Run the auto-generated batch extraction script
-python batch_extract.py
+uv run python .\batch_extract.py
 ```
 
 ### 3. Data Management
 
 ```bash
 # List all organized files
-python data_manager.py list
+uv run python .\data_manager.py list
 
 # Search for specific files
-python data_manager.py extract "slayer"
+uv run python .\data_manager.py extract "slayer"
 
 # Export file content in different formats
-python data_manager.py export "MasterTables" --format wikitext
+uv run python .\data_manager.py export "MasterTables" --format wikitext
 ```
 
 ## Directory Structure
@@ -132,16 +132,16 @@ Enhanced extraction with automatic organization:
 
 ```bash
 # Extract and save raw wikitext + metadata
-python wiki_tool.py source "Page Title" --save
+uv run python .\wiki_tool.py source "Page Title" --save
 
 # Include templates and modules
-python wiki_tool.py source "Module:SlayerConsts" --templates --save
+uv run python .\wiki_tool.py source "Module:SlayerConsts" --templates --save
 
 # Save page content with tables and links
-python wiki_tool.py page "Calculator:Combat level" --save
+uv run python .\wiki_tool.py page "Calculator:Combat level" --save
 
 # Save category listings
-python wiki_tool.py category "Slayer" --save --limit 50
+uv run python .\wiki_tool.py category "Slayer" --save --limit 50
 ```
 
 ### data_manager.py
@@ -150,21 +150,21 @@ Comprehensive data management:
 
 ```bash
 # Organize existing JSON file
-python data_manager.py organize calc_source.json --type calculator
+uv run python .\data_manager.py organize calc_source.json --type calculator
 
 # List all organized files
-python data_manager.py list
+uv run python .\data_manager.py list
 
 # Filter by category
-python data_manager.py list --category slayer
+uv run python .\data_manager.py list --category slayer
 
 # Search for files by pattern
-python data_manager.py extract "task_weight"
+uv run python .\data_manager.py extract "task_weight"
 
 # Export content in different formats
-python data_manager.py export "MasterTables" --format json
-python data_manager.py export "MasterTables" --format wikitext  
-python data_manager.py export "MasterTables" --format summary
+uv run python .\data_manager.py export "MasterTables" --format json
+uv run python .\data_manager.py export "MasterTables" --format wikitext  
+uv run python .\data_manager.py export "MasterTables" --format summary
 ```
 
 ### batch_extract.py
@@ -173,7 +173,7 @@ Automated batch processing:
 
 ```bash
 # Run pre-configured extraction of slayer and calculator data
-python batch_extract.py
+uv run python .\batch_extract.py
 
 # Automatically extracts:
 # - All slayer master tables and calculation modules
@@ -242,7 +242,7 @@ print(df)
 
 1. **Extract master tables**:
    ```bash
-   python wiki_tool.py source "Module:SlayerConsts/MasterTables" --templates --save
+   uv run python .\wiki_tool.py source "Module:SlayerConsts/MasterTables" --templates --save
    ```
 
 2. **Access organized data**:
@@ -255,8 +255,8 @@ print(df)
 
 1. **Extract calculator configs**:
    ```bash
-   python wiki_tool.py source "Calculator:Combat level" --save
-   python wiki_tool.py source "Calculator:Skill calculators/Hitpoints" --save
+   uv run python .\wiki_tool.py source "Calculator:Combat level" --save
+   uv run python .\wiki_tool.py source "Calculator:Skill calculators/Hitpoints" --save
    ```
 
 2. **Access organized data**:
@@ -267,17 +267,17 @@ print(df)
 
 1. **Run batch extraction**:
    ```bash
-   python batch_extract.py
+   uv run python .\batch_extract.py
    ```
 
 2. **Analyze extraction logs**:
    ```bash
-   python data_manager.py list --category metadata
+   uv run python .\data_manager.py list --category metadata
    ```
 
 3. **Export summaries**:
    ```bash
-   python data_manager.py extract "*" > extraction_summary.txt
+   uv run python .\data_manager.py extract "*" > extraction_summary.txt
    ```
 
 ## Advanced Features
@@ -333,18 +333,18 @@ organizer.create_extraction_log(
 ### Common Issues
 
 **Permission errors**: Ensure write access to the data directory
-**Missing files**: Run `python data_organizer.py` to create directory structure
+**Missing files**: Run `uv run python .\data_organizer.py` to create directory structure
 **Import errors**: Ensure `data_organizer.py` is in the same directory as `wiki_tool.py`
 
 ### Getting Help
 
 ```bash
 # Show tool help
-python wiki_tool.py --help
-python data_manager.py --help
+uv run python .\wiki_tool.py --help
+uv run python .\data_manager.py --help
 
 # List available commands
-python data_manager.py --help
+uv run python .\data_manager.py --help
 ```
 
 This portable system makes OSRS Wiki data extraction organized, trackable, and ready for analysis or integration with other tools.

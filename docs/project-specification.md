@@ -43,7 +43,7 @@ The tool exclusively uses the **MediaWiki API** to retrieve clean, structured da
 The tool follows a consistent pattern designed for integration into development workflows:
 
 ```
-python wiki_tool.py COMMAND PAGE_TITLE [OPTIONS]
+uv run python .\wiki_tool.py COMMAND PAGE_TITLE [OPTIONS]
 ```
 
 ### Output Format Standards:
@@ -78,7 +78,7 @@ python wiki_tool.py COMMAND PAGE_TITLE [OPTIONS]
   - Page discovery for batch processing workflows
 - **Output**: Paginated lists with metadata suitable for database loading
 
-### `page` Command - Structured Content (Planned)
+### `page` Command - Structured Content
 
 - **Purpose**: Extract parsed content in formats optimized for direct integration
 - **Use Cases**:
@@ -86,6 +86,7 @@ python wiki_tool.py COMMAND PAGE_TITLE [OPTIONS]
   - Table extraction for statistical analysis
   - Cross-reference data for relationship mapping
 - **Output**: Structured JSON with consistent field naming and type handling
+- **Options**: `--tables` for Markdown table rendering, `--save` to store output, `--data-dir` to choose storage location
 
 ## 6. API Integration & Data Standards
 
@@ -137,7 +138,7 @@ venv\Scripts\activate  # Windows
 pip install requests beautifulsoup4
 
 # Zero-dependency CLI framework using built-in argparse
-python wiki_tool.py --help
+uv run python .\wiki_tool.py --help
 ```
 
 ### Core Implementation Pattern:
@@ -172,7 +173,7 @@ def extract_for_plugin_development(page_title):
 
 #### RuneLite Plugin Data Format:
 ```java
-// Generated from: python wiki_tool.py source "Module:SlayerConsts/MasterTables" 
+// Generated from: uv run python .\wiki_tool.py source "Module:SlayerConsts/MasterTables" 
 public class SlayerTaskWeights {
     private static final Map<String, Integer> DURADEL_WEIGHTS = Map.of(
         "Abyssal demons", 12,
@@ -184,7 +185,7 @@ public class SlayerTaskWeights {
 
 #### Database Integration Format:
 ```sql
--- Generated from: python wiki_tool.py category "Items" --format csv
+-- Generated from: uv run python .\wiki_tool.py category "Items" --format csv
 CREATE TABLE osrs_items (
     item_name VARCHAR(255),
     category VARCHAR(100), 
@@ -205,8 +206,8 @@ The following URLs provide authoritative documentation for the APIs and librarie
 - MediaWiki API Sandbox (for testing): `https://www.mediawiki.org/wiki/Special:ApiSandbox`
 
 ### Python Library Documentation:
-- Typer: `https://typer.tiangolo.com/`
-- Requests: `https://requests.readthedocs.io/en/latest/`
+- argparse: `https://docs.python.org/3/library/argparse.html`
+- requests: `https://requests.readthedocs.io/en/latest/`
 - Beautiful Soup 4: `https://www.crummy.com/software/BeautifulSoup/bs4/doc/`
 - Python `json` module: `https://docs.python.org/3/library/json.html`
 - Python `csv` module: `https://docs.python.org/3/library/csv.html`
@@ -216,13 +217,13 @@ The following URLs provide authoritative documentation for the APIs and librarie
 ### Plugin Development Workflow:
 ```bash
 # Extract complete monster data for combat plugin
-python wiki_tool.py category "Monsters" --format json --save
+uv run python .\wiki_tool.py category "Monsters" --format json --save
 
 # Get calculator configurations for DPS analysis
-python wiki_tool.py source "Calculator:Combat level" --format text
+uv run python .\wiki_tool.py source "Calculator:Combat level" --format text
 
 # Extract item data for trade tracking plugin  
-python wiki_tool.py category "Items" --format csv --limit 1000
+uv run python .\wiki_tool.py category "Items" --format csv --limit 1000
 ```
 
 ### Data Analysis Pipeline:
@@ -242,7 +243,7 @@ print(df.groupby('slayer_master')['task_weight'].sum())
 ### Database Integration Example:
 ```bash
 # Extract all calculator pages for comprehensive dataset
-python wiki_tool.py category "Calculators" --format csv --save
+uv run python .\wiki_tool.py category "Calculators" --format csv --save
 
 # Import CSV data into SQLite database
 sqlite3 osrs_data.db ".import data/calculators.csv calculators"
@@ -273,7 +274,7 @@ The structured output formats enable developers to build:
 // Direct integration of extracted wiki data
 @Inject private Client client;
 
-// Load wiki data extracted via: python wiki_tool.py source "Module:SlayerConsts"  
+// Load wiki data extracted via: uv run python .\wiki_tool.py source "Module:SlayerConsts"  
 private final Map<Integer, SlayerTask> taskData = loadWikiExtraction("slayer_tasks.json");
 
 public void updateSlayerOverlay() {
@@ -318,9 +319,9 @@ GROUP BY category;
 ### Example Production Usage:
 ```bash
 # Complete dataset extraction for application deployment
-python wiki_tool.py category "Items" --format json --save --data-dir /app/data/
-python wiki_tool.py category "Monsters" --format json --save --data-dir /app/data/
-python wiki_tool.py source "Module:SlayerConsts/MasterTables" --format json --save
+uv run python .\wiki_tool.py category "Items" --format json --save --data-dir /app/data/
+uv run python .\wiki_tool.py category "Monsters" --format json --save --data-dir /app/data/
+uv run python .\wiki_tool.py source "Module:SlayerConsts/MasterTables" --format json --save
 
 # Verify data completeness for deployment
 ls -la /app/data/categories/  # Check category extractions  

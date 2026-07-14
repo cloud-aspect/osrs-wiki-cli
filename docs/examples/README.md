@@ -19,7 +19,7 @@ The primary use case - extracting complete slayer task weight data from the wiki
 Extract the JavaScript calculator configuration:
 
 ```bash
-python wiki_tool.py source "Calculator:Slayer/Slayer task weight" --templates --format text
+uv run python .\wiki_tool.py source "Calculator:Slayer/Slayer task weight" --templates --format text
 ```
 
 **Output snippet:**
@@ -39,7 +39,7 @@ param = master|Slayer Master|Turael|buttonselect|Turael,Krystilia,Mazchna,Vannak
 Extract the Lua module containing all slayer master weight tables:
 
 ```bash
-python wiki_tool.py source "Module:SlayerConsts/MasterTables" --format text
+uv run python .\wiki_tool.py source "Module:SlayerConsts/MasterTables" --format text
 ```
 
 **Output snippet:**
@@ -63,7 +63,7 @@ local duradel = {
 Extract the calculation algorithm:
 
 ```bash
-python wiki_tool.py source "Module:Slayer weight calculator" --format text
+uv run python .\wiki_tool.py source "Module:Slayer weight calculator" --format text
 ```
 
 **Output snippet:**
@@ -97,7 +97,7 @@ From this process, you can extract:
 ### Combat Level Calculator
 
 ```bash
-python wiki_tool.py source "Calculator:Combat level" --templates --format json
+uv run python .\wiki_tool.py source "Calculator:Combat level" --templates --format json
 ```
 
 **Output:**
@@ -117,7 +117,7 @@ python wiki_tool.py source "Calculator:Combat level" --templates --format json
 ### Experience Table Calculator
 
 ```bash
-python wiki_tool.py source "Calculator:Experience table" --format text
+uv run python .\wiki_tool.py source "Calculator:Experience table" --format text
 ```
 
 This reveals the XP calculation formulas and level progression tables used throughout the game.
@@ -127,7 +127,7 @@ This reveals the XP calculation formulas and level progression tables used throu
 ### Find All Slayer-Related Content
 
 ```bash
-python wiki_tool.py category "Modules" --format json
+uv run python .\wiki_tool.py category "Modules" --format json
 ```
 
 Then filter for slayer content:
@@ -139,7 +139,7 @@ Then filter for slayer content:
 ### Calculator Templates
 
 ```bash
-python wiki_tool.py category "Calculator templates" --limit 20 --format csv
+uv run python .\wiki_tool.py category "Calculator templates" --limit 20 --format csv
 ```
 
 **Output:**
@@ -153,7 +153,7 @@ title,pageid,ns
 ### Infobox Templates
 
 ```bash
-python wiki_tool.py source "Template:Infobox Monster" --format text
+uv run python .\wiki_tool.py source "Template:Infobox Monster" --format text
 ```
 
 This reveals the structure used for all monster pages, useful for understanding data organization.
@@ -163,7 +163,7 @@ This reveals the structure used for all monster pages, useful for understanding 
 ### Discover Calculator Categories
 
 ```bash
-python wiki_tool.py category "Calculators" --limit 10 --format json
+uv run python .\wiki_tool.py category "Calculators" --limit 10 --format json
 ```
 
 **Output:**
@@ -194,7 +194,7 @@ python wiki_tool.py category "Calculators" --limit 10 --format json
 ### Module Categories
 
 ```bash
-python wiki_tool.py category "Modules" --limit 50 --format csv
+uv run python .\wiki_tool.py category "Modules" --limit 50 --format csv
 ```
 
 Reveals all available Lua modules for data processing.
@@ -202,7 +202,7 @@ Reveals all available Lua modules for data processing.
 ### Template Categories
 
 ```bash
-python wiki_tool.py category "Templates" --limit 25 --format text
+uv run python .\wiki_tool.py category "Templates" --limit 25 --format text
 ```
 
 **Output:**
@@ -220,7 +220,7 @@ Template:JSCalculator
 ### JSON Format (Detailed)
 
 ```bash
-python wiki_tool.py source "Template:Documentation" --templates --format json
+uv run python .\wiki_tool.py source "Template:Documentation" --templates --format json
 ```
 
 **Complete Output:**
@@ -240,7 +240,7 @@ python wiki_tool.py source "Template:Documentation" --templates --format json
 ### CSV Format (Tabular)
 
 ```bash
-python wiki_tool.py category "Skill calculators" --format csv
+uv run python .\wiki_tool.py category "Skill calculators" --format csv
 ```
 
 **Output:**
@@ -256,7 +256,7 @@ title,pageid,ns
 ### Text Format (Clean)
 
 ```bash
-python wiki_tool.py source "Module:Coins" --format text
+uv run python .\wiki_tool.py source "Module:Coins" --format text
 ```
 
 **Output:**
@@ -287,17 +287,17 @@ return p
 
 1. **Extract calculator configuration:**
    ```bash
-   python wiki_tool.py source "Calculator:Slayer/Slayer task weight" --templates > slayer_config.json
+   uv run python .\wiki_tool.py source "Calculator:Slayer/Slayer task weight" --templates > slayer_config.json
    ```
 
 2. **Extract weight tables:**
    ```bash
-   python wiki_tool.py source "Module:SlayerConsts/MasterTables" --format text > weight_tables.lua
+   uv run python .\wiki_tool.py source "Module:SlayerConsts/MasterTables" --format text > weight_tables.lua
    ```
 
 3. **Extract constants:**
    ```bash
-   python wiki_tool.py source "Module:SlayerConsts" --format text > constants.lua
+   uv run python .\wiki_tool.py source "Module:SlayerConsts" --format text > constants.lua
    ```
 
 4. **Process the Lua data** into your preferred format (JSON, CSV, database, etc.)

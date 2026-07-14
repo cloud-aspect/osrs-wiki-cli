@@ -6,6 +6,7 @@ Complete instructions for using osrs-wiki-cli.
 
 - [Getting Started](#getting-started)
 - [Command Reference](#command-reference)
+- [Page Command](#page-command)
 - [Common Use Cases](#common-use-cases)
 - [Output Formats](#output-formats)
 - [Tips & Best Practices](#tips--best-practices)
@@ -21,6 +22,11 @@ All commands follow this pattern:
 osrs-wiki-cli <command> [arguments] [options]
 ```
 
+If you don't want to install dependencies globally, use:
+```bash
+uv run python .\wiki_tool.py <command> [arguments] [options]
+```
+
 ### Global Options
 
 - `--format` - Output format: `json` (default), `csv`, or `text`
@@ -33,23 +39,25 @@ osrs-wiki-cli <command> [arguments] [options]
 Extract raw wikitext and template information from wiki pages.
 
 ```bash
-python wiki_tool.py source <page_title> [options]
+uv run python .\wiki_tool.py source <page_title> [options]
 ```
 
 **Options:**
-- `--templates` - Include list of templates used on the page
-- `--format <format>` - Output format (json, csv, text)
+- `--templates` - Include list of templates and modules used by the page
+- `--expand` - Return expanded wikitext with template expansion
+- `--format <format>` - Output format (`json` or `text`)
+- `--save` - Save extracted output using the data organizer
 
 **Examples:**
 ```bash
 # Get Lua module source code
-python wiki_tool.py source "Module:SlayerConsts/MasterTables" --format text
+uv run python .\wiki_tool.py source "Module:SlayerConsts/MasterTables" --format text
 
 # Get calculator page with templates
-python wiki_tool.py source "Calculator:Slayer/Slayer task weight" --templates --format json
+uv run python .\wiki_tool.py source "Calculator:Slayer/Slayer task weight" --templates --format json
 
 # Get individual slayer master data
-python wiki_tool.py source "Module:Slayer weight calculator" --format text
+uv run python .\wiki_tool.py source "Module:Slayer weight calculator" --format text
 ```
 
 ### `category` Command
@@ -57,20 +65,44 @@ python wiki_tool.py source "Module:Slayer weight calculator" --format text
 List pages in a category with pagination support.
 
 ```bash
-python wiki_tool.py category <category_name> [options]
+uv run python .\wiki_tool.py category <category_name> [options]
 ```
 
 **Options:**
-- `--limit <number>` - Maximum pages to return (default: 50)
+- `--limit <number>` - Maximum pages to return (default: 10)
 - `--format <format>` - Output format (json, csv, text)
+- `--save` - Save extracted output using the data organizer
 
 **Examples:**
 ```bash
 # List calculator pages
-python wiki_tool.py category "Calculators" --format csv
+uv run python .\wiki_tool.py category "Calculators" --format csv
 
 # List all modules
-python wiki_tool.py category "Modules" --limit 100 --format json
+uv run python .\wiki_tool.py category "Modules" --limit 100 --format json
+```
+
+## `page` Command
+
+Extract parsed page content, tables, paragraphs, and links from a wiki page.
+
+```bash
+uv run python .\wiki_tool.py page <page_title> [options]
+```
+
+**Options:**
+- `--format <format>` - Output format (json, csv, text)
+- `--tables` - Render extracted tables as Markdown
+- `--save` - Save output using the data organizer
+- `--data-dir <dir>` - Directory for organized data storage (default: data)
+
+**Examples:**
+```bash
+# Extract parsed page content
+uv run python .\wiki_tool.py page "Calculator:Combat level" --format json
+
+# Extract only tables in Markdown format
+uv run python .\wiki_tool.py page "Calculator:Combat level" --tables
 ```
 
 ## Common Use Cases
@@ -81,17 +113,17 @@ The primary use case for this tool is extracting slayer task weight data:
 
 1. **Get the main calculator configuration:**
    ```bash
-   python wiki_tool.py source "Calculator:Slayer/Slayer task weight" --templates --format text
+   uv run python .\wiki_tool.py source "Calculator:Slayer/Slayer task weight" --templates --format text
    ```
 
 2. **Extract the Lua weight tables:**
    ```bash
-   python wiki_tool.py source "Module:SlayerConsts/MasterTables" --format text
+   uv run python .\wiki_tool.py source "Module:SlayerConsts/MasterTables" --format text
    ```
 
 3. **Get the calculation logic:**
    ```bash
-   python wiki_tool.py source "Module:Slayer weight calculator" --format text
+   uv run python .\wiki_tool.py source "Module:Slayer weight calculator" --format text
    ```
 
 ### Calculator Page Analysis
@@ -100,12 +132,12 @@ For other calculator pages:
 
 1. **List all calculators:**
    ```bash
-   python wiki_tool.py category "Calculators" --format csv
+   uv run python .\wiki_tool.py category "Calculators" --format csv
    ```
 
 2. **Extract specific calculator:**
    ```bash
-   python wiki_tool.py source "Calculator:Combat level" --templates --format json
+   uv run python .\wiki_tool.py source "Calculator:Combat level" --templates --format json
    ```
 
 ### Template and Module Discovery
@@ -114,10 +146,10 @@ Find related templates and modules:
 
 ```bash
 # List all Slayer-related modules
-python wiki_tool.py category "Modules" --format json | grep -i slayer
+uv run python .\wiki_tool.py category "Modules" --format json | grep -i slayer
 
 # Get template source
-python wiki_tool.py source "Template:Infobox Monster" --format text
+uv run python .\wiki_tool.py source "Template:Infobox Monster" --format text
 ```
 
 ## Output Formats

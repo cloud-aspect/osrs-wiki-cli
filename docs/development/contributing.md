@@ -29,8 +29,14 @@ Thank you for your interest in contributing! This document provides comprehensiv
    ```
 4. **Test the installation:**
    ```bash
-   python wiki_tool.py --help
-   python wiki_tool.py source "Template:Documentation" --format json
+   uv run python .\wiki_tool.py --help
+   uv run python .\wiki_tool.py source "Template:Documentation" --format json
+   ```
+
+   Or use uv:
+   ```bash
+   uv run python .\wiki_tool.py --help
+   uv run python .\wiki_tool.py source "Template:Documentation" --format json
    ```
 
 ## Ways to Contribute
@@ -45,7 +51,7 @@ Help us improve by reporting issues:
 - Try to reproduce the issue consistently
 
 **When submitting, include:**
-- **Command that failed:** `python wiki_tool.py source "Page Name" --options`
+- **Command that failed:** `uv run python .\wiki_tool.py source "Page Name" --options`
 - **Full error message and traceback**
 - **System information:**
   - Python version: `python --version`
@@ -259,16 +265,16 @@ Test all changes with real API calls:
 
 ```bash
 # Test successful cases
-python wiki_tool.py source "Template:Documentation" --format json
-python wiki_tool.py list "Category:Calculators" --limit 5
+uv run python .\wiki_tool.py source "Template:Documentation" --format json
+uv run python .\wiki_tool.py category "Category:Calculators" --limit 5
 
 # Test error cases
-python wiki_tool.py source "Nonexistent Page Name"
-python wiki_tool.py list "Nonexistent Category"
+uv run python .\wiki_tool.py source "Nonexistent Page Name"
+uv run python .\wiki_tool.py category "Nonexistent Category" --limit 5
 
 # Test edge cases
-python wiki_tool.py source "Page:With/Special/Characters"
-python wiki_tool.py list "Category:Empty" --limit 1
+uv run python .\wiki_tool.py source "Page:With/Special/Characters"
+uv run python .\wiki_tool.py category "Category:Empty" --limit 1
 ```
 
 ### Integration Testing
@@ -288,19 +294,19 @@ Test error handling:
 1. **Network issues:**
    ```bash
    # Temporarily disable network and test
-   python wiki_tool.py source "Any Page"
+   uv run python .\wiki_tool.py source "Any Page"
    ```
 
 2. **Invalid inputs:**
    ```bash
-   python wiki_tool.py source ""
-   python wiki_tool.py list "Not A Category"
+   uv run python .\wiki_tool.py source ""
+   uv run python .\wiki_tool.py category "Not A Category" --limit 5
    ```
 
 3. **Rate limiting:**
    ```bash
    # Make rapid requests (carefully!)
-   for i in {1..5}; do python wiki_tool.py source "Template:Documentation"; done
+   for i in {1..5}; do uv run python .\wiki_tool.py source "Template:Documentation"; done
    ```
 
 ### Regression Testing
@@ -309,13 +315,13 @@ Before submitting, verify core functionality works:
 
 ```bash
 # Slayer data extraction (primary use case)
-python wiki_tool.py source "Module:SlayerConsts/MasterTables" --format text
-python wiki_tool.py source "Calculator:Slayer/Slayer task weight" --templates
+uv run python .\wiki_tool.py source "Module:SlayerConsts/MasterTables" --format text
+uv run python .\wiki_tool.py source "Calculator:Slayer/Slayer task weight" --templates
 
 # All output formats
-python wiki_tool.py list "Category:Modules" --limit 5 --format json
-python wiki_tool.py list "Category:Modules" --limit 5 --format csv  
-python wiki_tool.py list "Category:Modules" --limit 5 --format text
+uv run python .\wiki_tool.py category "Category:Modules" --limit 5 --format json
+uv run python .\wiki_tool.py category "Category:Modules" --limit 5 --format csv  
+uv run python .\wiki_tool.py category "Category:Modules" --limit 5 --format text
 ```
 
 ## Documentation
@@ -346,7 +352,7 @@ Extract specific data type from wiki pages.
 
 **Usage:**
 ```bash
-python wiki_tool.py new-command <argument> [options]
+uv run python .\wiki_tool.py new-command <argument> [options]
 ```
 
 **Arguments:**
@@ -358,10 +364,10 @@ python wiki_tool.py new-command <argument> [options]
 **Examples:**
 ```bash
 # Basic usage
-python wiki_tool.py new-command "Example Page"
+uv run python .\wiki_tool.py new-command "Example Page"
 
 # With options
-python wiki_tool.py new-command "Example Page" --option value --format json
+uv run python .\wiki_tool.py new-command "Example Page" --option value --format json
 ```
 
 **Output:**

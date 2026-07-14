@@ -178,9 +178,10 @@ pip install requests beautifulsoup4
 ### Reference Implementation
 Current `wiki_tool.py` provides complete implementation of:
 - `source` command - Extract wikitext, templates, modules
-- `list` command - Category member listing with pagination
+- `category` command - Category member listing with pagination
+- `page` command - Parsed page content, table extraction, and links
 - Full error handling and rate limiting
-- All three output formats
+- All supported output formats
 - Complete help system
 
 ## Error Handling Patterns - **BATTLE-TESTED**
