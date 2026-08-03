@@ -1,8 +1,16 @@
 """
 Strongly-typed data models for OSRS Cargo tables.
 """
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Optional, List, Dict, Any
+
+def _safe_int(val: Any, default: Optional[int] = None) -> Optional[int]:
+    if val is None or str(val).strip() == "":
+        return default
+    try:
+        return int(val)
+    except (ValueError, TypeError):
+        return default
 
 @dataclass
 class ItemStats:
@@ -12,16 +20,16 @@ class ItemStats:
     equipment_slot: Optional[str] = None
     attack_speed: Optional[int] = None
     high_alch: Optional[int] = None
-    
+
     @classmethod
     def from_cargo(cls, cargo_dict: Dict[str, Any]) -> "ItemStats":
         return cls(
-            id=int(cargo_dict.get("id", 0)),
+            id=_safe_int(cargo_dict.get("id"), default=0),
             name=cargo_dict.get("name", "Unknown"),
             members=str(cargo_dict.get("members", "0")).lower() in ("1", "true", "yes"),
             equipment_slot=cargo_dict.get("equipment_slot"),
-            attack_speed=int(cargo_dict["attack_speed"]) if cargo_dict.get("attack_speed") else None,
-            high_alch=int(cargo_dict["high_alch"]) if cargo_dict.get("high_alch") else None
+            attack_speed=_safe_int(cargo_dict.get("attack_speed")),
+            high_alch=_safe_int(cargo_dict.get("high_alch"))
         )
 
 @dataclass
@@ -37,10 +45,10 @@ class MonsterStats:
     def from_cargo(cls, cargo_dict: Dict[str, Any]) -> "MonsterStats":
         return cls(
             name=cargo_dict.get("name", "Unknown"),
-            combat_level=int(cargo_dict.get("combat_level", 0)),
-            hitpoints=int(cargo_dict.get("hitpoints", 0)),
-            max_hit=int(cargo_dict.get("max_hit", 0)),
-            slayer_level=int(cargo_dict.get("slayer_req", 0) or 0),
+            combat_level=_safe_int(cargo_dict.get("combat_level"), default=0),
+            hitpoints=_safe_int(cargo_dict.get("hitpoints"), default=0),
+            max_hit=_safe_int(cargo_dict.get("max_hit"), default=0),
+            slayer_level=_safe_int(cargo_dict.get("slayer_req"), default=0),
             attack_style=cargo_dict.get("attack_style")
         )
 
