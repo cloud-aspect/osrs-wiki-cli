@@ -42,6 +42,8 @@ class MediaWikiCargoClient:
         return monsters
 
     def format_batch_title_where(self, names: List[str]) -> str:
+        if not names:
+            return "1=0"
         escaped_names = []
         for name in names:
             clean_name = name.replace("'", "\\'")
