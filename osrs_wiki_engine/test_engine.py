@@ -2,11 +2,18 @@
 Unit tests for OSRS Wiki Engine (Cargo client, SQLite cache, Models).
 """
 import unittest
-from osrs_wiki_engine.models import ItemStats, MonsterStats
+from osrs_wiki_engine.models import ItemStats, MonsterStats, _safe_int
 from osrs_wiki_engine.cache import SQLiteCache
 from osrs_wiki_engine.cargo_client import MediaWikiCargoClient
 
 class TestOSRSWikiEngine(unittest.TestCase):
+
+    def test_safe_int_parsing(self):
+        self.assertEqual(_safe_int("123"), 123)
+        self.assertEqual(_safe_int(""), None)
+        self.assertEqual(_safe_int("", default=0), 0)
+        self.assertEqual(_safe_int(None), None)
+        self.assertEqual(_safe_int("invalid"), None)
 
     def test_item_stats_parsing(self):
         mock_cargo_item = {
@@ -24,6 +31,21 @@ class TestOSRSWikiEngine(unittest.TestCase):
         self.assertEqual(item.equipment_slot, "weapon")
         self.assertEqual(item.attack_speed, 4)
         self.assertEqual(item.high_alch, 72000)
+
+    def test_item_stats_empty_fields(self):
+        mock_empty_item = {
+            "id": "",
+            "name": "Coins",
+            "members": "0",
+            "attack_speed": "",
+            "high_alch": ""
+        }
+        item = ItemStats.from_cargo(mock_empty_item)
+        self.assertEqual(item.id, 0)
+        self.assertEqual(item.name, "Coins")
+        self.assertFalse(item.members)
+        self.assertIsNone(item.attack_speed)
+        self.assertIsNone(item.high_alch)
 
     def test_monster_stats_parsing(self):
         mock_cargo_monster = {
@@ -70,6 +92,11 @@ class TestOSRSWikiEngine(unittest.TestCase):
         names = ["Abyssal whip", "Dragon dagger", "Twisted bow"]
         where_clause = client.format_batch_title_where(names)
         self.assertEqual(where_clause, "name IN ('Abyssal whip','Dragon dagger','Twisted bow')")
+
+    def test_empty_batch_where_formatting(self):
+        client = MediaWikiCargoClient()
+        where_clause = client.format_batch_title_where([])
+        self.assertEqual(where_clause, "1=0")
 
 if __name__ == "__main__":
     unittest.main()
