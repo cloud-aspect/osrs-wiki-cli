@@ -1,0 +1,12 @@
+version: '3'
+
+tasks:
+  cli:
+    desc: Run the wiki CLI; pass args after -- (e.g. task wiki:cli -- page "Slayer" --tables --format json)
+    dir: '{{.TASKFILE_DIR}}'
+    cmd: uv run osrs-wiki-cli {{.CLI_ARGS}}
+
+  install:
+    desc: Sync/install the uv environment
+    dir: '{{.TASKFILE_DIR}}'
+    cmd: uv sync
