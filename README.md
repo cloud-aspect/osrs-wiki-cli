@@ -1,5 +1,9 @@
 # osrs-wiki-cli
 
+> **Project status: Archived**
+>
+> I’m no longer developing or maintaining osrs-wiki-cli. I archived this project because I don’t want it to create an unintentional burden for OSRS Wiki maintainers. The code remains available for reference, but I won’t be accepting contributions or continuing development.
+
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub release](https://img.shields.io/github/v/release/cloud-aspect/osrs-wiki-cli?include_prereleases)](https://github.com/cloud-aspect/osrs-wiki-cli/releases)
